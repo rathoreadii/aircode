@@ -1,0 +1,77 @@
+{
+  "name": "aircode",
+  "displayName": "AirCode – Local & Hardware-Adaptive Coding Assistant",
+  "description": "100% private, offline AI pair programmer and inline autocomplete powered by open-source models tailored to your hardware.",
+  "version": "0.1.0",
+  "publisher": "your-publisher-id",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "ai",
+    "copilot",
+    "ollama",
+    "autocomplete",
+    "offline",
+    "local ai",
+    "ghost text"
+  ],
+  "main": "./dist/extension.js",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rathoreadii/aircode.git"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aircode-sidebar",
+          "title": "AirCode",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "aircode-sidebar": [
+        {
+          "type": "webview",
+          "id": "aircode.chatView",
+          "name": "AirCode Assistant"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AirCode Configuration",
+      "properties": {
+        "aircode.ollamaEndpoint": {
+          "type": "string",
+          "default": "http://127.0.0.1:11434",
+          "description": "Endpoint URL where the local Ollama instance is running."
+        },
+        "aircode.debounceMs": {
+          "type": "number",
+          "default": 250,
+          "description": "Debounce delay (in ms) before triggering inline completions."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build:webview": "cd webview-ui && npm run build",
+    "build:extension": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "watch:extension": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --watch",
+    "build": "npm run build:webview && npm run build:extension",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  }
+}

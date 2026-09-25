@@ -1,0 +1,11 @@
+.vscode/**
+.github/**
+src/**
+webview-ui/node_modules/**
+webview-ui/src/**
+webview-ui/index.html
+webview-ui/vite.config.js
+**/*.map
+tsconfig.json
+.git/**
+.gitignore
